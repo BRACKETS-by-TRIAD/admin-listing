@@ -1,6 +1,6 @@
-<?php namespace Brackets\Admin\Tests\Feature\AdminListing;
+<?php namespace Brackets\AdminListing\Tests\Feature\AdminListing;
 
-use Brackets\Admin\Tests\TestCase;
+use Brackets\AdminListing\Tests\TestCase;
 use Illuminate\Http\Request;
 use Mockery;
 

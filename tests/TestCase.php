@@ -1,7 +1,6 @@
-<?php namespace Brackets\Admin\Tests;
+<?php namespace Brackets\AdminListing\Tests;
 
-use Brackets\Admin\AdminListing;
-use File;
+use Brackets\AdminListing\AdminListing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
@@ -35,9 +34,6 @@ abstract class TestCase extends Test
 
     protected function getEnvironmentSetUp($app)
     {
-        // FIXME this is deprecated anymore right?
-//        app()->make('config')->set('translatable.locales', ['en', 'sk']);
-
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
             'driver' => 'pgsql',

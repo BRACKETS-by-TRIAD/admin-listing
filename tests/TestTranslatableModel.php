@@ -1,4 +1,4 @@
-<?php namespace Brackets\Admin\Tests;
+<?php namespace Brackets\AdminListing\Tests;
 
 use Brackets\Admin\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Model;

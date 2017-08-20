@@ -1,7 +1,7 @@
 {
-    "name": "brackets/admin",
-    "description": "Admin (CRUD) interface built on Laravel 5",
-    "keywords": ["simpleweb", "crud", "admin", "administration"],
+    "name": "brackets/admin-listing",
+    "description": "Admin Listing helper",
+    "keywords": ["simpleweb", "crud", "admin", "listing", "datatables"],
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -19,14 +19,14 @@
     ],
     "require": {
         "php": ">=7.0.0",
-        "illuminate/support": "5.4.*",
-        "brackets/admin": "dev-master"
+        "illuminate/support": "5.4.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "orchestra/testbench": "~3.0",
-        "phpunit/phpunit": "~6.3"
+        "phpunit/phpunit": "~6.3",
+        "brackets/admin": "dev-master"
     },
     "autoload": {
         "classmap": [],
@@ -44,5 +44,5 @@
             "type": "path",
             "url": "../Admin"
         }
-    ],
+    ]
 }

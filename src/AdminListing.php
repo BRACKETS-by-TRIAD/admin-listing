@@ -1,6 +1,5 @@
-<?php namespace Brackets\Admin;
+<?php namespace Brackets\AdminListing;
 
-use Brackets\Admin\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -10,7 +9,7 @@ use Illuminate\Support\Collection;
 class AdminListing {
 
     /**
-     * @var Model|HasTranslations
+     * @var Model|\Brackets\Admin\Traits\HasTranslations
      */
     protected $model;
 
@@ -105,7 +104,7 @@ class AdminListing {
 
     private function init() {
 
-        if (in_array(HasTranslations::class, class_uses($this->model))) {
+        if (in_array('Brackets\Admin\Traits\HasTranslations', class_uses($this->model))) {
             $this->modelHasTranslations = true;
             $this->locale = $this->model->locale ?: app()->getLocale();
         }
