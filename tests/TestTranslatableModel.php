@@ -1,6 +1,6 @@
 <?php namespace Brackets\AdminListing\Tests;
 
-use Brackets\Admin\Traits\HasTranslations;
+use Brackets\Translatable\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class TestTranslatableModel extends Model
