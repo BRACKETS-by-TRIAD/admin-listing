@@ -104,7 +104,7 @@ class AdminListing {
 
     private function init() {
 
-        if (in_array('Brackets\Admin\Traits\HasTranslations', class_uses($this->model))) {
+        if (in_array('Brackets\Translatable\Traits\HasTranslations', class_uses($this->model))) {
             $this->modelHasTranslations = true;
             $this->locale = $this->model->locale ?: app()->getLocale();
         }
