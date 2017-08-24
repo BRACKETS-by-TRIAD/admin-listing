@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Brackets\AdminListing\Exceptions\NotAModelClassException;
+use Illuminate\Support\Facades\DB;
 
 class AdminListing {
 
@@ -240,12 +241,24 @@ class AdminListing {
                             $query->orWhere($this->materializeColumnName($column, true), intval($token));
                         }
                     } else {
-                        // FIXME how to make this case insensitive when using different databases? in SQLite "like" is case-insensitive but in PostgreSQL we use there is a "ilike" operator.. so maybe we need to extract this operator and initialize it depending on a database driver
-                        $query->orWhere($this->materializeColumnName($column, true), 'like', '%'.$token.'%');
+                        $this->searchLike($query, $column, $token);
                     }
                 });
             });
         });
+    }
+
+    private function searchLike($query, $column, $token) {
+
+        // MySQL and SQLite uses 'like' pattern matching operator that is case insensitive
+        $likeOperator = 'like';
+
+        // but PostgreSQL uses 'ilike' pattern matching operator for this same functionality
+        if (DB::connection()->getDriverName() == 'pgsql') {
+            $likeOperator = 'ilike';
+        }
+
+        $query->orWhere($this->materializeColumnName($column, true), $likeOperator, '%'.$token.'%');
     }
 
     /**
