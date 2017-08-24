@@ -1,7 +1,7 @@
 <?php namespace Brackets\AdminListing\Tests\Feature\AdminListing;
 
 use Brackets\AdminListing\AdminListing;
-use Brackets\AdminListing\NotAModelClassException;
+use Brackets\AdminListing\Exceptions\NotAModelClassException;
 use Brackets\AdminListing\Tests\TestCase;
 
 class ExceptionsTest extends TestCase
