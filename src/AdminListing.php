@@ -106,6 +106,7 @@ class AdminListing {
 
     private function init() {
 
+        // this class name is hard-coded because we don't want to have dependency on brackets/translatable package, if it's not completely necessary
         if (in_array('Brackets\Translatable\Traits\HasTranslations', class_uses($this->model))) {
             $this->modelHasTranslations = true;
             $this->locale = $this->model->locale ?: app()->getLocale();
@@ -166,8 +167,12 @@ class AdminListing {
      *
      * @param $locale
      * @return $this
+     * @throws \Exception
      */
     public function setLocale($locale) {
+        if (!$this->modelHasTranslations()) {
+            throw new \Exception('Model is not translatable, so you cannot set locale');
+        }
         $this->locale = $locale;
         return $this;
     }
