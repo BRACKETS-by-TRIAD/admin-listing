@@ -1,7 +1,14 @@
 {
     "name": "brackets/admin-listing",
-    "description": "Admin Listing helper",
-    "keywords": ["simpleweb", "crud", "admin", "listing", "datatables"],
+    "description": "Query-building helper for listing of Eloquent models",
+    "keywords": [
+        "listing",
+        "eloquent",
+        "datatable",
+        "admin",
+        "cms",
+        "laravel"
+    ],
     "license": "MIT",
     "type": "project",
     "authors": [
@@ -9,11 +16,6 @@
             "name": "Pavol Perdík",
             "email": "pavol.perdik@brackets.sk",
             "homepage": "https://www.brackets.sk/en",
-            "role": "Developer"
-        },
-        {
-            "name": "David Běhal",
-            "email": "behal.david@gmail.com",
             "role": "Developer"
         }
     ],
