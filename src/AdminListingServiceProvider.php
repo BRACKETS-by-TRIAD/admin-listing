@@ -2,6 +2,7 @@
 
 namespace Brackets\AdminListing;
 
+use Brackets\AdminListing\Console\Commands\AdminListingInstall;
 use Illuminate\Support\ServiceProvider;
 use Brackets\AdminListing\Facades\AdminListing as AdminListingFacade;
 
@@ -13,6 +14,18 @@ class AdminListingServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = true;
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->commands([
+            AdminListingInstall::class,
+        ]);
+    }
 
     /**
      * Register the service provider.

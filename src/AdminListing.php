@@ -145,7 +145,7 @@ class AdminListing {
         // process all the basic stuff
         $this->attachOrdering($request->input('orderBy', $this->model->getKeyName()), $request->input('orderDirection', 'asc'))
             ->attachSearch($request->input('search', null), $searchIn)
-            ->attachPagination($request->input('page', 1), $request->input('per_page', 10));
+            ->attachPagination($request->input('page', 1), $request->input('per_page', $request->cookie('per_page', 10)));
 
         // add custom modifications
         if (!is_null($modifyQuery)) {
