@@ -6,7 +6,8 @@ use Mockery;
 
 class ProcessRequestTest extends TestCase
 {
-    /** @test */
+    // TODO refactor this class - creates a fake route and remove all the request mocking
+
     function request_processing_with_nothing_sent() {
         $request = Mockery::mock(Request::class);
 
@@ -41,7 +42,6 @@ class ProcessRequestTest extends TestCase
         $this->assertCount(10, $result);
     }
 
-    /** @test */
     function request_processing_with_ordering() {
         $request = Mockery::mock(Request::class);
 
@@ -78,7 +78,6 @@ class ProcessRequestTest extends TestCase
     }
 
 
-    /** @test */
     function request_processing_with_search() {
         $request = Mockery::mock(Request::class);
 
@@ -114,7 +113,6 @@ class ProcessRequestTest extends TestCase
         $this->assertEquals('Zeta 10', $result->getCollection()->first()->name);
     }
 
-    /** @test */
     function request_processing_with_pagination_manipulated() {
         $request = Mockery::mock(Request::class);
 
@@ -152,7 +150,6 @@ class ProcessRequestTest extends TestCase
     }
 
 
-    /** @test */
     function request_processing_on_translatable_model_with_default_locale() {
         $request = Mockery::mock(Request::class);
 
@@ -189,7 +186,6 @@ class ProcessRequestTest extends TestCase
         $this->assertEquals('red', $result->getCollection()->first()->color);
     }
 
-    /** @test */
     function request_processing_on_translatable_model_with_sk_locale() {
         $request = Mockery::mock(Request::class);
 
