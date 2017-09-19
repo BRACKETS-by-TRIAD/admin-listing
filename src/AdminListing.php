@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class AdminListing {
 
     /**
-     * @var Model|\Brackets\Admin\Traits\HasTranslations
+     * @var Model|Brackets\Translatable\Traits\HasTranslations
      */
     protected $model;
 
@@ -326,7 +326,7 @@ class AdminListing {
         if ($this->modelHasTranslations()) {
             // we need to set this default locale ad hoc
             $collection->each(function ($model) {
-                /** @var $model HasTranslations */
+                /** @var $model Brackets\Translatable\Traits\HasTranslations */
                 $model->setLocale($this->locale);
             });
         }
