@@ -29,6 +29,8 @@ class AdminListingInstall extends Command
     public function handle()
     {
         $this->alterEncryptCookiesMiddleware();
+
+        $this->info('Package brackets/admin-listing installed');
     }
 
     private function strReplaceInFile($fileName, $find, $replaceWith) {
