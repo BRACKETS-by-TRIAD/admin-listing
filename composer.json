@@ -41,12 +41,6 @@
             "Brackets\\AdminListing\\Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@bitbucket.org:TRIAD-Advertising/translatable.git"
-        }
-    ],
     "extra": {
         "laravel": {
             "providers": [
