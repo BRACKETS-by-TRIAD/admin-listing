@@ -37,11 +37,11 @@ abstract class TestCase extends Test
         $app['config']->set('database.default', 'testing');
         $app['config']->set('database.connections.testing', [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'testing'),
-            'username' => env('DB_USERNAME', 'homestead'),
-            'password' => env('DB_PASSWORD', 'secret'),
+            'host' => '127.0.0.1',
+            'port' => env('DOCKER_PGSQL_TEST_PORT', '5555'),
+            'database' => 'testing',
+            'username' => 'testing',
+            'password' => 'secret',
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
