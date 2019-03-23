@@ -24,7 +24,7 @@ abstract class TestCase extends Test
      */
     protected $translatedListing;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->setUpDatabase($this->app);
