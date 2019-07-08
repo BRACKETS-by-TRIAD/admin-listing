@@ -275,8 +275,8 @@ class AdminListing {
      */
     public function attachPagination($currentPage, $perPage = 10) {
         $this->hasPagination = true;
-        $this->currentPage = $currentPage;
-        $this->perPage = $perPage;
+        $this->currentPage = (int)$currentPage;
+        $this->perPage = (int)$perPage;
 
         return $this;
     }
