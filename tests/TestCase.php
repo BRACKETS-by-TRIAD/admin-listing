@@ -34,19 +34,28 @@ abstract class TestCase extends Test
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.testing', [
-            'driver' => 'pgsql',
-            'host' => '127.0.0.1',
-            'port' => env('DOCKER_PGSQL_TEST_PORT', '5555'),
-            'database' => 'testing',
-            'username' => 'testing',
-            'password' => 'secret',
-            'charset' => 'utf8',
-            'prefix' => '',
-            'schema' => 'public',
-            'sslmode' => 'prefer',
-        ]);
+        if(env('DB_CONNECTION') === 'pgsql') {
+            $app['config']->set('database.default', 'pgsql');
+            $app['config']->set('database.connections.pgsql', [
+                'driver' => 'pgsql',
+                'host' => 'testing',
+                'port' => '5432',
+                'database' => 'homestead',
+                'username' => 'homestead',
+                'password' => 'secret',
+                'charset' => 'utf8',
+                'prefix' => '',
+                'schema' => 'public',
+                'sslmode' => 'prefer',
+            ]);
+        } else {
+            $app['config']->set('database.default', 'sqlite');
+            $app['config']->set('database.connections.sqlite', [
+                'driver' => 'sqlite',
+                'database' => ':memory:',
+                'prefix' => '',
+            ]);
+        }
     }
 
     /**
