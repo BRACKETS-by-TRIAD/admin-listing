@@ -144,9 +144,11 @@ class AdminListing {
     public function processRequestAndGet(Request $request, array $columns = ['*'], $searchIn = null, callable $modifyQuery = null, $locale = null) {
         // process all the basic stuff
         $this->attachOrdering($request->input('orderBy', $this->model->getKeyName()), $request->input('orderDirection', 'asc'))
-            ->attachSearch($request->input('search', null), $searchIn)
-            ->attachPagination($request->input('page', 1), $request->input('per_page', $request->cookie('per_page', 10)));
+            ->attachSearch($request->input('search', null), $searchIn);
 
+        if(!$request->input('bulk')){
+            $this->attachPagination($request->input('page', 1), $request->input('per_page', $request->cookie('per_page', 10)));
+        }
         // add custom modifications
         if (!is_null($modifyQuery)) {
             $this->modifyQuery($modifyQuery);
