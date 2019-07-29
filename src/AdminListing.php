@@ -146,6 +146,7 @@ class AdminListing {
         $this->attachOrdering($request->input('orderBy', $this->model->getKeyName()), $request->input('orderDirection', 'asc'))
             ->attachSearch($request->input('search', null), $searchIn);
 
+        // we want to attach pagination if bulk filter is disabled otherwise we want to select all data without pagination
         if(!$request->input('bulk')){
             $this->attachPagination($request->input('page', 1), $request->input('per_page', $request->cookie('per_page', 10)));
         }
@@ -156,6 +157,11 @@ class AdminListing {
 
         if (!is_null($locale)) {
             $this->setLocale($locale);
+        }
+
+        // if bulk filter is enabled we want to get only primary keys
+        if($request->input('bulk')){
+            return $this->get(['id']);
         }
 
         // execute query and get the results
