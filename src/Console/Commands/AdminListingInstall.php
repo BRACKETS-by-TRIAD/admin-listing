@@ -33,15 +33,19 @@ class AdminListingInstall extends Command
         $this->info('Package brackets/admin-listing installed');
     }
 
-    private function strReplaceInFile($fileName, $find, $replaceWith) {
+    private function strReplaceInFile($fileName, $find, $replaceWith)
+    {
         $content = File::get($fileName);
         return File::put($fileName, str_replace($find, $replaceWith, $content));
     }
 
-    private function alterEncryptCookiesMiddleware() {
+    private function alterEncryptCookiesMiddleware()
+    {
         // change app/Http/Middleware/EncryptCookies to accept frontend-generated 'per_page' cookie from vue
-        $this->strReplaceInFile(app_path('Http/Middleware/EncryptCookies.php'),
+        $this->strReplaceInFile(
+            app_path('Http/Middleware/EncryptCookies.php'),
             "//",
-            "'per_page'");
+            "'per_page'"
+        );
     }
 }

@@ -3,8 +3,8 @@
 namespace Brackets\AdminListing;
 
 use Brackets\AdminListing\Console\Commands\AdminListingInstall;
-use Illuminate\Support\ServiceProvider;
 use Brackets\AdminListing\Facades\AdminListing as AdminListingFacade;
+use Illuminate\Support\ServiceProvider;
 
 class AdminListingServiceProvider extends ServiceProvider
 {

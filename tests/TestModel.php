@@ -1,4 +1,6 @@
-<?php namespace Brackets\AdminListing\Tests;
+<?php
+
+namespace Brackets\AdminListing\Tests;
 
 use Illuminate\Database\Eloquent\Model;
 

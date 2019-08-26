@@ -1,14 +1,17 @@
-<?php namespace Brackets\AdminListing;
+<?php
 
+namespace Brackets\AdminListing;
+
+use Brackets\AdminListing\Exceptions\NotAModelClassException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Brackets\AdminListing\Exceptions\NotAModelClassException;
 use Illuminate\Support\Facades\DB;
 
-class AdminListing {
+class AdminListing
+{
 
     /**
      * @var Model|Brackets\Translatable\Traits\HasTranslations
@@ -74,7 +77,8 @@ class AdminListing {
      * @param $modelName
      * @return static
      */
-    public static function create($modelName) {
+    public static function create($modelName)
+    {
         return (new static)->setModel($modelName);
     }
 
@@ -84,11 +88,11 @@ class AdminListing {
      * Setting the model is required
      *
      * @param Model|string $model
-     * @return $this
      * @throws NotAModelClassException
+     * @return $this
      */
-    public function setModel($model) {
-
+    public function setModel($model)
+    {
         if (is_string($model)) {
             $model = app($model);
         }
@@ -104,7 +108,8 @@ class AdminListing {
         return $this;
     }
 
-    private function init() {
+    private function init()
+    {
 
         // this class name is hard-coded because we don't want to have dependency on brackets/translatable package, if it's not completely necessary
         if (in_array('Brackets\Translatable\Traits\HasTranslations', class_uses($this->model))) {
@@ -115,7 +120,6 @@ class AdminListing {
         $this->query = $this->model->newQuery();
 
         $this->orderBy = $this->model->getKeyName();
-
     }
 
     /**
@@ -141,13 +145,14 @@ class AdminListing {
      * @param string $locale
      * @return LengthAwarePaginator|Collection The result is either LengthAwarePaginator (when pagination was attached) or simple Collection otherwise
      */
-    public function processRequestAndGet(Request $request, array $columns = ['*'], $searchIn = null, callable $modifyQuery = null, $locale = null) {
+    public function processRequestAndGet(Request $request, array $columns = ['*'], $searchIn = null, callable $modifyQuery = null, $locale = null)
+    {
         // process all the basic stuff
         $this->attachOrdering($request->input('orderBy', $this->model->getKeyName()), $request->input('orderDirection', 'asc'))
             ->attachSearch($request->input('search', null), $searchIn);
 
         // we want to attach pagination if bulk filter is disabled otherwise we want to select all data without pagination
-        if(!$request->input('bulk')){
+        if (!$request->input('bulk')) {
             $this->attachPagination($request->input('page', 1), $request->input('per_page', $request->cookie('per_page', 10)));
         }
         // add custom modifications
@@ -160,7 +165,7 @@ class AdminListing {
         }
 
         // if bulk filter is enabled we want to get only primary keys
-        if($request->input('bulk')){
+        if ($request->input('bulk')) {
             return $this->get(['id']);
         }
 
@@ -174,10 +179,11 @@ class AdminListing {
      * This method is only valid for Translatable models
      *
      * @param $locale
-     * @return $this
      * @throws \Exception
+     * @return $this
      */
-    public function setLocale($locale) {
+    public function setLocale($locale)
+    {
         if (!$this->modelHasTranslations()) {
             throw new \Exception('Model is not translatable, so you cannot set locale');
         }
@@ -195,14 +201,16 @@ class AdminListing {
      * @param string $orderDirection
      * @return $this
      */
-    public function attachOrdering($orderBy, $orderDirection = 'asc') {
+    public function attachOrdering($orderBy, $orderDirection = 'asc')
+    {
         $this->orderBy = $orderBy;
         $this->orderDirection = $orderDirection;
         return $this;
     }
 
-    private function buildOrdering() {
-        if ($this->modelHasTranslations()){
+    private function buildOrdering()
+    {
+        if ($this->modelHasTranslations()) {
             $orderBy = $this->materializeColumnName($this->parseFullColumnName($this->orderBy), true);
         } else {
             $orderBy = $this->orderBy;
@@ -219,13 +227,15 @@ class AdminListing {
      * @param array $searchIn array of columns which should be searched in (only text, character varying or primary key are allowed)
      * @return $this
      */
-    public function attachSearch($search, array $searchIn) {
+    public function attachSearch($search, array $searchIn)
+    {
         $this->search = $search;
         $this->searchIn = $searchIn;
         return $this;
     }
 
-    private function buildSearch() {
+    private function buildSearch()
+    {
         // when passed null, search is disabled
         if (is_null($this->searchIn) || !is_array($this->searchIn) || count($this->searchIn) == 0) {
             return ;
@@ -239,15 +249,15 @@ class AdminListing {
 
         $tokens = collect(explode(' ', $search));
 
-        $searchIn = collect($this->searchIn)->map(function($column){
+        $searchIn = collect($this->searchIn)->map(function ($column) {
             return $this->parseFullColumnName($column);
         });
 
         // FIXME there is an issue, if you pass primary key as the only column to search in, it may not work properly
 
-        $tokens->each(function($token) use ($searchIn) {
-            $this->query->where(function(Builder $query) use ($token, $searchIn) {
-                $searchIn->each(function($column) use ($token, $query) {
+        $tokens->each(function ($token) use ($searchIn) {
+            $this->query->where(function (Builder $query) use ($token, $searchIn) {
+                $searchIn->each(function ($column) use ($token, $query) {
                     // FIXME try to find out how to customize this default behaviour
                     if ($this->model->getKeyName() == $column['column'] && $this->model->getTable() == $column['table']) {
                         if (is_numeric($token) && $token === strval(intval($token))) {
@@ -261,7 +271,8 @@ class AdminListing {
         });
     }
 
-    private function searchLike($query, $column, $token) {
+    private function searchLike($query, $column, $token)
+    {
 
         // MySQL and SQLite uses 'like' pattern matching operator that is case insensitive
         $likeOperator = 'like';
@@ -281,7 +292,8 @@ class AdminListing {
      * @param int $perPage
      * @return $this
      */
-    public function attachPagination($currentPage, $perPage = 10) {
+    public function attachPagination($currentPage, $perPage = 10)
+    {
         $this->hasPagination = true;
         $this->currentPage = (int)$currentPage;
         $this->perPage = (int)$perPage;
@@ -295,7 +307,8 @@ class AdminListing {
      * @param callable $modifyQuery
      * @return $this
      */
-    public function modifyQuery(callable $modifyQuery) {
+    public function modifyQuery(callable $modifyQuery)
+    {
         $modifyQuery($this->query);
 
         return $this;
@@ -307,8 +320,9 @@ class AdminListing {
      * @param array $columns
      * @return LengthAwarePaginator|Collection The result is either LengthAwarePaginator (when pagination was attached) or simple Collection otherwise
      */
-    public function get(array $columns = ['*']) {
-        $columns = collect($columns)->map(function($column) {
+    public function get(array $columns = ['*'])
+    {
+        $columns = collect($columns)->map(function ($column) {
             return $this->parseFullColumnName($column);
         });
 
@@ -318,7 +332,8 @@ class AdminListing {
         return $this->buildPaginationAndGetResult($columns);
     }
 
-    private function buildPaginationAndGetResult($columns) {
+    private function buildPaginationAndGetResult($columns)
+    {
         if ($this->hasPagination) {
             $result = $this->query->paginate($this->perPage, $this->materializeColumnNames($columns), $this->pageColumnName, $this->currentPage);
             $this->processResultCollection($result->getCollection());
@@ -330,7 +345,8 @@ class AdminListing {
         return $result;
     }
 
-    protected function processResultCollection(Collection $collection) {
+    protected function processResultCollection(Collection $collection)
+    {
         if ($this->modelHasTranslations()) {
             // we need to set this default locale ad hoc
             $collection->each(function ($model) {
@@ -340,7 +356,8 @@ class AdminListing {
         }
     }
 
-    protected function parseFullColumnName($column) {
+    protected function parseFullColumnName($column)
+    {
         if (str_contains($column, '.')) {
             list($table, $column) = explode('.', $column, 2);
         } else {
@@ -355,18 +372,20 @@ class AdminListing {
         return compact('table', 'column', 'translatable');
     }
 
-    protected function materializeColumnName($column, $translated = false) {
+    protected function materializeColumnName($column, $translated = false)
+    {
         return $column['table'].'.'.$column['column'].($translated ? ($column['translatable'] ? '->'.$this->locale : '') : '');
     }
 
-    protected function modelHasTranslations() {
+    protected function modelHasTranslations()
+    {
         return $this->modelHasTranslations;
     }
 
-    protected function materializeColumnNames(Collection $columns, $translated = false) {
-        return $columns->map(function($column) use ($translated) {
+    protected function materializeColumnNames(Collection $columns, $translated = false)
+    {
+        return $columns->map(function ($column) use ($translated) {
             return $this->materializeColumnName($column, $translated);
         })->toArray();
     }
-
 }

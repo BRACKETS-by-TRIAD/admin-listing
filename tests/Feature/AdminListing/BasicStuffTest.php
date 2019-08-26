@@ -1,11 +1,14 @@
-<?php namespace Brackets\AdminListing\Tests\Feature\AdminListing;
+<?php
+
+namespace Brackets\AdminListing\Tests\Feature\AdminListing;
 
 use Brackets\AdminListing\Tests\TestCase;
 
 class BasicStuffTest extends TestCase
 {
     /** @test */
-    function listing_should_return_whole_collection_when_nothing_was_set() {
+    public function listing_should_return_whole_collection_when_nothing_was_set()
+    {
         $result = $this->listing
             ->get();
 
@@ -19,7 +22,8 @@ class BasicStuffTest extends TestCase
     }
 
     /** @test */
-    function listing_ability_to_specify_columns_to_filter() {
+    public function listing_ability_to_specify_columns_to_filter()
+    {
         $result = $this->listing
             ->get(['name', 'color']);
 
@@ -33,7 +37,8 @@ class BasicStuffTest extends TestCase
     }
 
     /** @test */
-    function it_should_be_possible_to_run_same_query_twice() {
+    public function it_should_be_possible_to_run_same_query_twice()
+    {
         $this->listing
             ->get();
 
@@ -48,5 +53,4 @@ class BasicStuffTest extends TestCase
         $this->assertArrayHasKey('number', $model);
         $this->assertArrayHasKey('published_at', $model);
     }
-
 }
