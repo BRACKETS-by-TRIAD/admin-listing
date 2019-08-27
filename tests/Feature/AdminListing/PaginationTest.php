@@ -1,12 +1,14 @@
-<?php namespace Brackets\AdminListing\Tests\Feature\AdminListing;
+<?php
+
+namespace Brackets\AdminListing\Tests\Feature\AdminListing;
 
 use Brackets\AdminListing\Tests\TestCase;
-use Illuminate\Database\QueryException;
 
 class PaginationTest extends TestCase
 {
     /** @test */
-    function listing_provides_pagination() {
+    public function listing_provides_pagination()
+    {
         $result = $this->listing
             ->attachOrdering('name')
             ->attachPagination(2, 3)
@@ -21,7 +23,8 @@ class PaginationTest extends TestCase
     }
 
     /** @test */
-    function listing_pagination_works_on_translatable_model_too() {
+    public function listing_pagination_works_on_translatable_model_too()
+    {
         $result = $this->translatedListing
             ->attachOrdering('name')
             ->attachPagination(2, 3)
@@ -36,7 +39,8 @@ class PaginationTest extends TestCase
     }
 
     /** @test */
-    function listing_pagination_works_on_translatable_model_with_locale_sk() {
+    public function listing_pagination_works_on_translatable_model_with_locale_sk()
+    {
         $result = $this->translatedListing
             ->attachOrdering('name')
             ->setLocale('sk')
@@ -50,5 +54,4 @@ class PaginationTest extends TestCase
         $this->assertEquals(4, $result->lastPage());
         $this->assertEquals('Alfa', $result->getCollection()->first()->name);
     }
-
 }

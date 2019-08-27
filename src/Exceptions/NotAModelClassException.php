@@ -1,3 +1,7 @@
-<?php namespace Brackets\AdminListing\Exceptions;
+<?php
 
-class NotAModelClassException extends \Exception { }
+namespace Brackets\AdminListing\Exceptions;
+
+class NotAModelClassException extends \Exception
+{
+}

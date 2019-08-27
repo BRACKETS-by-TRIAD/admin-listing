@@ -1,4 +1,6 @@
-<?php namespace Brackets\AdminListing\Tests\Feature\AdminListing;
+<?php
+
+namespace Brackets\AdminListing\Tests\Feature\AdminListing;
 
 use Brackets\AdminListing\Tests\TestCase;
 use Illuminate\Http\Request;
@@ -8,7 +10,8 @@ class ProcessRequestTest extends TestCase
 {
     // TODO refactor this class - creates a fake route and remove all the request mocking
 
-    function request_processing_with_nothing_sent() {
+    public function request_processing_with_nothing_sent()
+    {
         $request = Mockery::mock(Request::class);
 
         $request->shouldReceive('input')
@@ -42,7 +45,8 @@ class ProcessRequestTest extends TestCase
         $this->assertCount(10, $result);
     }
 
-    function request_processing_with_ordering() {
+    public function request_processing_with_ordering()
+    {
         $request = Mockery::mock(Request::class);
 
         $request->shouldReceive('input')
@@ -78,7 +82,8 @@ class ProcessRequestTest extends TestCase
     }
 
 
-    function request_processing_with_search() {
+    public function request_processing_with_search()
+    {
         $request = Mockery::mock(Request::class);
 
         $request->shouldReceive('input')
@@ -113,7 +118,8 @@ class ProcessRequestTest extends TestCase
         $this->assertEquals('Zeta 10', $result->getCollection()->first()->name);
     }
 
-    function request_processing_with_pagination_manipulated() {
+    public function request_processing_with_pagination_manipulated()
+    {
         $request = Mockery::mock(Request::class);
 
         $request->shouldReceive('input')
@@ -150,7 +156,8 @@ class ProcessRequestTest extends TestCase
     }
 
 
-    function request_processing_on_translatable_model_with_default_locale() {
+    public function request_processing_on_translatable_model_with_default_locale()
+    {
         $request = Mockery::mock(Request::class);
 
         $request->shouldReceive('input')
@@ -186,7 +193,8 @@ class ProcessRequestTest extends TestCase
         $this->assertEquals('red', $result->getCollection()->first()->color);
     }
 
-    function request_processing_on_translatable_model_with_sk_locale() {
+    public function request_processing_on_translatable_model_with_sk_locale()
+    {
         $request = Mockery::mock(Request::class);
 
         $request->shouldReceive('input')
@@ -221,5 +229,4 @@ class ProcessRequestTest extends TestCase
         $this->assertEquals(null, $result->getCollection()->first()->name);
         $this->assertEquals('cervena', $result->getCollection()->first()->color);
     }
-
 }
