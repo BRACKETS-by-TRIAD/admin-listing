@@ -1,4 +1,6 @@
-<?php namespace Brackets\AdminListing\Tests;
+<?php
+
+namespace Brackets\AdminListing\Tests;
 
 use Brackets\AdminListing\AdminListing;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +36,7 @@ abstract class TestCase extends Test
 
     protected function getEnvironmentSetUp($app)
     {
-        if(env('DB_CONNECTION') === 'pgsql') {
+        if (env('DB_CONNECTION') === 'pgsql') {
             $app['config']->set('database.default', 'pgsql');
             $app['config']->set('database.connections.pgsql', [
                 'driver' => 'pgsql',
@@ -81,7 +83,7 @@ abstract class TestCase extends Test
             'published_at' => '2000-06-01 00:00:00',
         ]);
 
-        collect(range(2, 10))->each(function($i){
+        collect(range(2, 10))->each(function ($i) {
             TestModel::create([
                 'name' => 'Zeta '.$i,
                 'color' => 'yellow',
@@ -112,7 +114,7 @@ abstract class TestCase extends Test
             'published_at' => '2000-06-01 00:00:00',
         ]);
 
-        collect(range(2, 10))->each(function($i){
+        collect(range(2, 10))->each(function ($i) {
             TestTranslatableModel::create([
                 'name' => [
                     'en' => 'Zeta '.$i,
@@ -124,7 +126,5 @@ abstract class TestCase extends Test
                 'published_at' => (1998+$i).'-01-01 00:00:00',
             ]);
         });
-
     }
-
 }

@@ -1,4 +1,6 @@
-<?php namespace Brackets\AdminListing\Tests\Feature\AdminListing;
+<?php
+
+namespace Brackets\AdminListing\Tests\Feature\AdminListing;
 
 use Brackets\AdminListing\Tests\TestCase;
 use Illuminate\Database\QueryException;
@@ -6,7 +8,8 @@ use Illuminate\Database\QueryException;
 class OrderingTest extends TestCase
 {
     /** @test */
-    function listing_should_provide_ability_to_sort_by_name() {
+    public function listing_should_provide_ability_to_sort_by_name()
+    {
         $result = $this->listing
             ->attachOrdering('name')
             ->get();
@@ -15,7 +18,8 @@ class OrderingTest extends TestCase
     }
 
     /** @test */
-    function listing_should_provide_ability_to_change_sort_order() {
+    public function listing_should_provide_ability_to_change_sort_order()
+    {
         $result = $this->listing
             ->attachOrdering('name', 'desc')
             ->get();
@@ -25,8 +29,8 @@ class OrderingTest extends TestCase
     }
 
     /** @test */
-    function sorting_by_not_existing_column_should_lead_to_an_error() {
-
+    public function sorting_by_not_existing_column_should_lead_to_an_error()
+    {
         try {
             $this->listing
                 ->attachOrdering('not_existing_column_name')
@@ -37,11 +41,11 @@ class OrderingTest extends TestCase
         }
 
         $this->fail("Sorting by not existing column should lead to an exception");
-
     }
 
     /** @test */
-    function translated_listing_can_be_sorted_by_translated_column() {
+    public function translated_listing_can_be_sorted_by_translated_column()
+    {
         $result = $this->translatedListing
             ->attachOrdering('name->en')
             ->get();
@@ -55,7 +59,8 @@ class OrderingTest extends TestCase
     }
 
     /** @test */
-    function translated_listing_supports_querying_only_some_columns() {
+    public function translated_listing_supports_querying_only_some_columns()
+    {
         $result = $this->translatedListing
             ->attachOrdering('name')
             ->get(['published_at', 'name']);
@@ -70,7 +75,8 @@ class OrderingTest extends TestCase
     }
 
     /** @test */
-    function translated_listing_can_work_with_locales() {
+    public function translated_listing_can_work_with_locales()
+    {
         $result = $this->translatedListing
             ->attachOrdering('name')
             ->setLocale('sk')
@@ -85,5 +91,4 @@ class OrderingTest extends TestCase
         $this->assertEquals('cervena', $model->color);
         $this->assertEquals('cervena', $model->getTranslation('color', 'sk'));
     }
-
 }
