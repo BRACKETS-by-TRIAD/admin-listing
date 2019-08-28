@@ -2,6 +2,8 @@
 
 namespace Brackets\AdminListing\Exceptions;
 
-class NotAModelClassException extends \Exception
+use Exception;
+
+class NotAModelClassException extends Exception
 {
 }
