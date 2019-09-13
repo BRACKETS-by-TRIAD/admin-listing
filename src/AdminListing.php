@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AdminListing
 {
@@ -385,7 +386,7 @@ class AdminListing
      */
     protected function parseFullColumnName($column): array
     {
-        if (str_contains($column, '.')) {
+        if (Str::contains($column, '.')) {
             list($table, $column) = explode('.', $column, 2);
         } else {
             $table = $this->model->getTable();
