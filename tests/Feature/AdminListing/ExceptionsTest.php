@@ -41,7 +41,7 @@ class ExceptionsTest extends TestCase
             AdminListing::create("Some string that is definitely not a class name");
 
             // this time we are not checking a NotAModelClassException exception, because it is going to fail a bit earlier
-        } catch (\ReflectionException $e) {
+        } catch (\Exception $e) {
             $this->assertTrue(true);
             return ;
         }
