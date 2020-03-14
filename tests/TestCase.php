@@ -39,11 +39,11 @@ abstract class TestCase extends Test
         $app['config']->set('database.default', 'pgsql');
         $app['config']->set('database.connections.pgsql', [
             'driver' => 'pgsql',
-            'host' => 'testing',
-            'port' => '5432',
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', 'bestsecret'),
+            'host' => '127.0.0.1',
+            'port' => env('DOCKER_PGSQL_TEST_PORT', '5555'),
+            'database' => 'testing',
+            'username' => 'testing',
+            'password' => 'secret',
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
