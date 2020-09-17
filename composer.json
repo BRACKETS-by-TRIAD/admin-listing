@@ -39,7 +39,7 @@
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*|^1.0",
         "phpunit/phpunit": "^8.5|^9.0",
-        "orchestra/testbench": "~4.0|~5.0",
+        "orchestra/testbench": "~4.0|~5.0|~6.0",
         "brackets/translatable": "^2.0"
     },
     "autoload": {
