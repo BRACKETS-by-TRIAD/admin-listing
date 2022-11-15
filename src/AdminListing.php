@@ -307,6 +307,7 @@ class AdminListing
      *
      * @param $currentPage
      * @param int $perPage
+     * @param string $pageColumnName
      * @return $this
      */
     public function attachPagination($currentPage, $perPage = 10, $pageColumnName = 'page'): self
