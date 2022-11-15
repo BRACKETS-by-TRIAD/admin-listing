@@ -309,11 +309,12 @@ class AdminListing
      * @param int $perPage
      * @return $this
      */
-    public function attachPagination($currentPage, $perPage = 10): self
+    public function attachPagination($currentPage, $perPage = 10, $pageColumnName = 'page'): self
     {
         $this->hasPagination = true;
         $this->currentPage = (int)$currentPage;
         $this->perPage = (int)$perPage;
+        $this->pageColumnName = $pageColumnName;
 
         return $this;
     }
@@ -356,7 +357,7 @@ class AdminListing
     private function buildPaginationAndGetResult($columns)
     {
         if ($this->hasPagination) {
-            $result = $this->query->paginate($this->perPage, $this->materializeColumnNames($columns), $this->pageColumnName, $this->currentPage);
+            $result = $this->query->paginate($this->perPage, $this->materializeColumnNames($columns), $this->pageColumnName, $this->currentPage)->withQueryString();
             $this->processResultCollection($result->getCollection());
         } else {
             $result = $this->query->get($this->materializeColumnNames($columns));
