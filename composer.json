@@ -39,7 +39,7 @@
         "mockery/mockery": "0.9.*|^1.0",
         "phpunit/phpunit": "^8.5|^9.0|^10.0",
         "orchestra/testbench": "~4.0|~5.0|~6.0|~7.0|~8.0",
-        "brackets/translatable": "dev-master",
+        "brackets/translatable": "dev-Feat/Upgrade-To-Laravel-10",
         "fakerphp/faker": "^1.19"
     },
     "autoload": {
@@ -62,5 +62,12 @@
         "branch-alias": {
             "dev-master": "3.0-dev"
         }
-    }
+    },
+
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../translatable"
+        }
+    ]
 }
